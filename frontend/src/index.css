@@ -1,0 +1,44 @@
+@import "tailwindcss";
+ @plugin "daisyui" {
+   themes: light --default, dark --prefersdark;
+ }
+
+
+
+/* src/index.css */
+@layer utilities {
+  .eb-garamond-italic {
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+@layer utilities {
+  .eb-garamond-bold {
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+  }
+}
+@layer utilities {
+  .eb-garamond-semibold {
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+
+@layer utilities{
+  
+.arizonia-regular {
+  font-family: "Arizonia", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+}
+
+

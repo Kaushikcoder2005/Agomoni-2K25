@@ -1,7 +1,8 @@
 import { set } from 'mongoose';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import QRCode from "react-qr-code";
 import { useStore } from '../store/store';
+
 
 
 
@@ -14,7 +15,28 @@ function UserPage() {
     })
     const [hidden, setHidden] = useState(true);
     const [value, setValue] = useState("")
-    const { createUser } = useStore()
+    const { createUser, getFoodCount } = useStore()
+    const [foodcount, setFoodCount] = useState("")
+
+    useEffect(() => {
+        const fetchFoodCount = async () => {
+            try {
+                const { data } = await getFoodCount();
+
+                
+                console.log(data[0]._id);
+                console.log(data[0].count);
+
+
+            } catch (error) {   
+                console.error("Error fetching food count:", error);
+            }
+        };
+
+        fetchFoodCount();
+    }, [getFoodCount]);
+
+
 
     const handleClick = async () => {
         const { success, message, data } = await createUser(input);
@@ -30,7 +52,7 @@ function UserPage() {
         });
         setHidden(!hidden);
     }
-    
+
     return (
 
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-17 eb-garamond-bold' >

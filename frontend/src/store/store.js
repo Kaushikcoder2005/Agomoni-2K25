@@ -4,15 +4,40 @@ export const useStore = create((set) => ({
     user: [],
     setUser: (user) => set({ user }),
 
+    getFoodCount: async() => {
+        try{
+            const response = await fetch("http://localhost:8000",{
+                method:"GET",
+                headers:{
+                    "content-type":"application/json"
+                }
+            })
+            const data = await response.json();
+            console.log(data.foodCount);
+            
+            return{
+                success:true,
+                message: "Food count fetched",
+                data: data.foodCount
+            }
+            
+        }
+        catch(error) {
+            console.error('Error fetching food count:', error);
+            return {
+                success: false,
+                message: 'Failed to fetch food count'
+            };
+        }
+    },
+
     createUser: async (users) => {
         if (!users.name || !users.college_roll || !users.year || !users.sem) {
             return {
                 success: false,
                 message: 'All fields are required'
             }
-
         }
-
         try {
 
             const response = await fetch("http://localhost:8000/students", {

@@ -55,7 +55,7 @@ export const useStore = create((set) => ({
             }
             return {
                 success: true,
-                message: 'User created successfully',
+                message: data.message,
                 data: data.data
             };
         } catch (error) {

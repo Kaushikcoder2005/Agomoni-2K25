@@ -6,6 +6,7 @@ import App from './App.jsx'
 import UserPage from './pages/UserPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import Practicepage from './pages/page.jsx'
+import ShowQRcode from './pages/ShowQRcode.jsx'
 
 
 const routes = createBrowserRouter(
@@ -13,6 +14,7 @@ const routes = createBrowserRouter(
     <Route path="/" element={<App/>}>
         <Route index element={<HomePage/>} />
         <Route path='/generatetoken' element={<UserPage/>}/>
+        <Route path='/showqr' element={<ShowQRcode/>}/>
     </Route>
   )
 )

@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 
+// set is responsible for updating the user state
+
 export const useStore = create((set) => ({
     user: [],
-    setUser: (user) => set({ user }),
-
+    
     getFoodCount: async() => {
         try{
             const response = await fetch("http://localhost:8000",{
@@ -18,7 +19,7 @@ export const useStore = create((set) => ({
             return{
                 success:true,
                 message: "Food count fetched",
-                data: data.foodCount
+                data: data.foodCount,
             }
             
         }
@@ -49,9 +50,9 @@ export const useStore = create((set) => ({
             })
             const data = await response.json();
             if (response.ok) {
-                set((state)=>{
-                    return {user: [...state.user, data.data]}
-                })
+                set((state)=>(
+                     {user: [...state.user, data.data]}
+                ))
             }
             return {
                 success: true,

@@ -15,14 +15,21 @@ dotenv.config();
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
-app.use("/",StaticRoute) 
+app.use("/", StaticRoute)
 app.use("/students", router);
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
-    connectDB()
-    console.log("Server is running on port " + PORT);
-    console.log("http://localhost:" + PORT);
+connectDB()
+.then(() => {
 
+    app.listen(PORT, () => {
+        console.log("Server is running on port " + PORT);
+        console.log("http://localhost:" + PORT);
+
+    })
+})
+.catch((error)=>{
+    console.log(`Error connecting to the database: ${error.message}`);
+    
 })

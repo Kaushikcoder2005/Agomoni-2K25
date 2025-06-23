@@ -28,8 +28,8 @@ function UserPage() {
                 const { data } = await getFoodCount();
 
                 data.map((item) => {
-                    console.log(item._id);
-                    console.log(item.count);
+                    console.log(`Total ${item._id} food count: ${item.count} `);
+                   
                 })
 
             } catch (error) {

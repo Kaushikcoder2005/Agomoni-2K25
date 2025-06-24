@@ -4,7 +4,6 @@ import QRCode from "react-qr-code";
 import { useStore } from '../store/store';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ShowQRcode from './ShowQRcode';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 
@@ -29,7 +28,7 @@ function UserPage() {
 
                 data.map((item) => {
                     console.log(`Total ${item._id} food count: ${item.count} `);
-                   
+
                 })
 
             } catch (error) {
@@ -44,16 +43,19 @@ function UserPage() {
 
     const handleClick = async () => {
         const { success, message, data } = await createUser(input);
-     
-      
+        if (success) {
             toast.success(message)
-     
+        }
+        else {
+            toast.error(message);
+
+        }
         if (data._id) {
             setValue(data._id)
-            navigate("/showqr", {state:{value:data._id}});
+            navigate("/showqr", { state: { value: data._id } });
         }
 
-        setInput({
+       setInput({
             name: "",
             college_roll: "",
             year: "",
@@ -66,7 +68,7 @@ function UserPage() {
     return (
 
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-17 eb-garamond-bold' >
-               <ToastContainer />
+           
             {/* Name Section  */}
             <div className='flex flex-col items-start justify-start  w-[320px]'>
                 <label htmlFor="name" className='pl-0.5'>Name:-</label>
@@ -155,21 +157,21 @@ function UserPage() {
 
                 </div>
             </div>
- 
+
 
             {/* Submit Button */}
             <NavLink
                 className="px-6 py- text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05]  text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
                 onClick={handleClick}
-                to={"/showqr"}
-                
+
+
             >
                 Submit
             </NavLink>
 
 
 
-  
+
         </div >
 
     )

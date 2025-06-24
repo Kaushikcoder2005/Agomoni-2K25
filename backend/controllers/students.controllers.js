@@ -18,14 +18,15 @@ const CreateStudentsData = async (req, res) => {
     const { name, college_roll, year, sem, foodType } = req.body;
     try {
         if (!name || !college_roll || !year || !sem || !foodType) {
-            return res.status(400).json({ message: "Please fill all the fields" });
+            return res.status(400).json({success:false, message: "Please fill all the fields" });
             
         }
         const checkExistingStudent = await Students.findOne({ college_roll, sem });
         
         if (checkExistingStudent) {
             return res.status(400).json({
-                message: "Student already exists with this college roll and semester"
+                message: "Student already exists with this college roll and semester",
+                success: false
             })
             
         }
@@ -39,7 +40,8 @@ const CreateStudentsData = async (req, res) => {
         })
         return res.status(200).json({
             message: "Student created successfully",
-            data: Student
+            data: Student,
+            success: true
         })
 
 

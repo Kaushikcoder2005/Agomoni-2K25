@@ -1,3 +1,4 @@
+import { data } from 'react-router-dom';
 import { create } from 'zustand';
 
 // set is responsible for updating the user state
@@ -55,14 +56,14 @@ export const useStore = create((set) => ({
                 ))
             }
             return {
-                success: true,
+                success: data.success,
                 message: data.message,
                 data: data.data
             };
         } catch (error) {
             console.error('Error creating user:', error);
             return {
-                success: false,
+                success: data.success || false,
                 message: 'Failed to create user'
             };
 

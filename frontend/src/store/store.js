@@ -10,19 +10,10 @@ export const useStore = create((set) => ({
             const response = await fetch(`${API_BASE_URL}/api`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
-                    // Add authorization header if using it
-                    // "Authorization": `Bearer ${token}`
+                    "content-type": "application/json"
                 },
                 credentials: "include",
-            });
-
-            // Check if response is OK (status 200-299)
-            if (!response.ok) {
-                const errorData = await response.text(); // Try to read error response
-                throw new Error(`Server responded with status ${response.status}: ${errorData}`);
-            }
-
+            })
             const data = await response.json();
 
             return {
@@ -30,11 +21,12 @@ export const useStore = create((set) => ({
                 message: "Food count fetched",
                 data: data,
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error fetching food count:', error);
             return {
                 success: false,
-                message: error.message || 'Failed to fetch food count'
+                message: 'Failed to fetch food count'
             };
         }
     },

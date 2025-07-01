@@ -14,7 +14,7 @@ const GetAllStudentsData = async (req, res) => {
     ]);
 
 
-    const cookies = req.cookies.token;
+    const cookies = req.cookies.token||req.headers.authorization;
     const decoded = jwt.verify(cookies, process.env.JWT_SECRET)
 
     return res.json({ Students: student, foodCount: foodTypeCount, userID: decoded.id });

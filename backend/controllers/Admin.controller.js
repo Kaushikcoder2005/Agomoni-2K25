@@ -90,7 +90,7 @@ const validateAdmin = async (req, res) => {
 }
 
 const adminLogin = async (req,res) => {
-    const cookie = req.cookies.adminToken;
+    const cookie = req.cookies.adminToken || req.headers.authorization;
     const decodedToken = jwt.verify(cookie, process.env.JWT_SECRET);
     if (!decodedToken) {
         return res.status(401).json({

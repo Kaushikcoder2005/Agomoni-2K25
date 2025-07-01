@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(cors({
-  origin: 'https://deployment-agomoni2k25.vercel.com',
+  origin: '',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

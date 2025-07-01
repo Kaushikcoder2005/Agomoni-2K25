@@ -8,7 +8,7 @@ export const useStore = create((set) => ({
 
     getFoodCount: async () => {
         try {
-            const response = await fetch("http://localhost:8000", {
+            const response = await fetch("http://localhost:8000/api", {
                 method: "GET",
                 headers: {
                     "content-type": "application/json"
@@ -37,7 +37,7 @@ export const useStore = create((set) => ({
     findStudentID: async (stdData) => {
         try {
 
-            const response = await fetch("http://localhost:8000/students/findstudents", {
+            const response = await fetch("http://localhost:8000/api/students/findstudents", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -68,7 +68,7 @@ export const useStore = create((set) => ({
     createUser: async (users) => {
         try {
 
-            const response = await fetch("http://localhost:8000/students", {
+            const response = await fetch("http://localhost:8000/api/students", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -100,7 +100,7 @@ export const useStore = create((set) => ({
 
     validateAdmin: async (adminData)=>{
         try {
-            const response = await fetch("http://localhost:8000/admin/validate",
+            const response = await fetch("http://localhost:8000/api/admin/validate",
                 {
                     method: "POST",
                     headers:{
@@ -128,7 +128,7 @@ export const useStore = create((set) => ({
     },
     adminLogin: async()=>{
         try{
-            const response = await fetch("http://localhost:8000/admin/adminLogin", {
+            const response = await fetch("http://localhost:8000/api/admin/adminLogin", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -150,7 +150,7 @@ export const useStore = create((set) => ({
     },
     FindStudentsByID: async (id) => {
         try {
-            const response = await fetch("http://localhost:8000/students/studentData", {
+            const response = await fetch("http://localhost:8000/api/students/studentData", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

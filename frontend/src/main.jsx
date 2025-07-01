@@ -5,16 +5,20 @@ import './index.css'
 import App from './App.jsx'
 import UserPage from './pages/UserPage.jsx'
 import HomePage from './pages/HomePage.jsx'
-import Practicepage from './pages/page.jsx'
 import ShowQRcode from './pages/ShowQRcode.jsx'
+
+import Admin from './pages/Admin.jsx'
 
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
+        {/* <Route index element={<Login/>} /> */}
         <Route index element={<HomePage/>} />
         <Route path='/generatetoken' element={<UserPage/>}/>
         <Route path='/showqr' element={<ShowQRcode/>}/>
+        <Route path='/admin' element={<Admin/>}/>
+        
     </Route>
   )
 )

@@ -3,20 +3,24 @@ const dotenv = require('dotenv');
 const { connectDB } = require('./connect/db');
 const router = require('./router/students.router');
 const StaticRoute = require('./router/StaticeRoute');
+const adminRouter = require('./router/Admin');
 const app = express();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 
-
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(cors({
-    origin: 'http://localhost:5173'
+  origin: 'http://localhost:5173',
+  credentials: true
 }));
 app.use("/", StaticRoute)
 app.use("/students", router);
+app.use("/admin", adminRouter)
 
 const PORT = process.env.PORT || 8000;
 

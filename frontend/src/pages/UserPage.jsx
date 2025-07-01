@@ -16,19 +16,15 @@ function UserPage() {
         sem: ""
     })
     const [hidden, setHidden] = useState(true);
-    const [value, setValue] = useState("")
     const { createUser, getFoodCount } = useStore()
-    const [foodcount, setFoodCount] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFoodCount = async () => {
             try {
                 const { data } = await getFoodCount();
-
-                data.map((item) => {
+                data.foodCount.map((item) => {
                     console.log(`Total ${item._id} food count: ${item.count} `);
-
                 })
 
             } catch (error) {
@@ -48,14 +44,14 @@ function UserPage() {
         }
         else {
             toast.error(message);
-
         }
         if (data._id) {
-            setValue(data._id)
-            navigate("/showqr", { state: { value: data._id } });
-        }
 
-       setInput({
+            navigate("/showqr");
+        }
+        
+
+        setInput({
             name: "",
             college_roll: "",
             year: "",
@@ -68,7 +64,7 @@ function UserPage() {
     return (
 
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-17 eb-garamond-bold' >
-           
+
             {/* Name Section  */}
             <div className='flex flex-col items-start justify-start  w-[320px]'>
                 <label htmlFor="name" className='pl-0.5'>Name:-</label>

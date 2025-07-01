@@ -15,7 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://deployment-agomoni2k25.vercel.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 app.use("/", StaticRoute)

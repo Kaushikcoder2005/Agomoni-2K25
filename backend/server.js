@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://agomoni-2k25-2.onrender.com/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

@@ -7,6 +7,7 @@ const adminRouter = require('./router/Admin');
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 
 app.use(cookieParser())
@@ -22,6 +23,10 @@ app.use(cors({
 app.use("/api", StaticRoute)
 app.use("/api/students", router);
 app.use("/api/admin", adminRouter)
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+
+
 
 const PORT = process.env.PORT || 8000;
 

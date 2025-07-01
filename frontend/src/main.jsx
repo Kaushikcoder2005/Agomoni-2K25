@@ -13,7 +13,6 @@ import Admin from './pages/Admin.jsx'
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
-        {/* <Route index element={<Login/>} /> */}
         <Route index element={<HomePage/>} />
         <Route path='/generatetoken' element={<UserPage/>}/>
         <Route path='/showqr' element={<ShowQRcode/>}/>

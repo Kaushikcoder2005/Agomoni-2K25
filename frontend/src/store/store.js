@@ -1,14 +1,13 @@
-import { data } from 'react-router-dom';
 import { create } from 'zustand';
 
-// set is responsible for updating the user state
+const API_BASE_URL = "https://agomoni-2k25-backend.onrender.com"; // Consider renaming to something more descriptive
 
 export const useStore = create((set) => ({
     user: [],
 
     getFoodCount: async () => {
         try {
-            const response = await fetch("http://localhost:8000/api", {
+            const response = await fetch(`${API_BASE_URL}/api`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json"
@@ -16,14 +15,12 @@ export const useStore = create((set) => ({
                 credentials: "include",
             })
             const data = await response.json();
-            // console.log(data.userID);
 
             return {
                 success: true,
                 message: "Food count fetched",
                 data: data,
             }
-
         }
         catch (error) {
             console.error('Error fetching food count:', error);
@@ -36,8 +33,7 @@ export const useStore = create((set) => ({
 
     findStudentID: async (stdData) => {
         try {
-
-            const response = await fetch("http://localhost:8000/api/students/findstudents", {
+            const response = await fetch(`${API_BASE_URL}/api/students/findstudents`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -52,8 +48,6 @@ export const useStore = create((set) => ({
                 message: data.message,
                 data: data.data
             }
-
-
         } catch (error) {
             console.log('Error finding student ID:', error);
             return {
@@ -61,14 +55,12 @@ export const useStore = create((set) => ({
                 success: false,
                 data: null
             }
-
         }
     },
 
     createUser: async (users) => {
         try {
-
-            const response = await fetch("http://localhost:8000/api/students", {
+            const response = await fetch(`${API_BASE_URL}/api/students`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -90,34 +82,27 @@ export const useStore = create((set) => ({
         } catch (error) {
             console.error('Error creating user:', error);
             return {
-                success: data.success || false,
+                success: false,
                 message: 'Failed to create user'
             };
-
         }
-
     },
 
-    validateAdmin: async (adminData)=>{
+    validateAdmin: async (adminData) => {
         try {
-            const response = await fetch("http://localhost:8000/api/admin/validate",
-                {
-                    method: "POST",
-                    headers:{
-                        "content-type":"application/json"
-                    },
-                    body: JSON.stringify(adminData),
-                    credentials: "include"
-                }
-            )
+            const response = await fetch(`${API_BASE_URL}/api/admin/validate`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(adminData),
+                credentials: "include"
+            })
             const data = await response.json();
             return {
                 success: data.success,
                 message: data.message,
             }
-
-
-
         } catch (error) {
             console.error('Error validating admin:', error);
             return {
@@ -126,9 +111,10 @@ export const useStore = create((set) => ({
             };
         }
     },
-    adminLogin: async()=>{
-        try{
-            const response = await fetch("http://localhost:8000/api/admin/adminLogin", {
+
+    adminLogin: async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/admin/adminLogin`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -140,7 +126,7 @@ export const useStore = create((set) => ({
                 success: data.success,
                 message: data.message,
             }
-        }catch (error) {
+        } catch (error) {
             console.error('Error logging in admin:', error);
             return {
                 success: false,
@@ -148,9 +134,10 @@ export const useStore = create((set) => ({
             };
         }
     },
+
     FindStudentsByID: async (id) => {
         try {
-            const response = await fetch("http://localhost:8000/api/students/studentData", {
+            const response = await fetch(`${API_BASE_URL}/api/students/studentData`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -172,6 +159,4 @@ export const useStore = create((set) => ({
             };
         }
     }
-
 }))
-

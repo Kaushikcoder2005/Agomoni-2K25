@@ -25,9 +25,9 @@ app.use("/api/students", router);
 app.use("/api/admin", adminRouter)
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));  
-})
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));  
+// })
 
 
 const PORT = process.env.PORT || 8000;

@@ -3,21 +3,47 @@ const Students = require('../models/students.model');
 const jwt = require('jsonwebtoken');
 
 const GetAllStudentsData = async (req, res) => {
-    const student = await Students.find({});
-    const foodTypeCount = await Students.aggregate([
-        {
-            $group: {
-                _id: "$foodType",
-                count: { $sum: 1 }
-            }
+    try {
+        // Get token from cookies or authorization header
+        let token;
+        if (req.cookies.token) {
+            token = req.cookies.token;
+        } else if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+            token = req.headers.authorization.split(' ')[1];
         }
-    ]);
 
+        if (!token) {
+            return res.status(401).json({ error: 'Not authorized, no token provided' });
+        }
 
-    const cookies = req.cookies.token||req.headers.authorization;
-    const decoded = jwt.verify(cookies, process.env.JWT_SECRET)
+        // Verify token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            return res.status(401).json({ error: 'Not authorized, token failed' });
+        }
 
-    return res.json({ Students: student, foodCount: foodTypeCount, userID: decoded.id });
+        // Fetch data
+        const student = await Students.find({});
+        const foodTypeCount = await Students.aggregate([
+            {
+                $group: {
+                    _id: "$foodType",
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        return res.json({
+            Students: student,
+            foodCount: foodTypeCount,
+            userID: decoded.id
+        });
+    } catch (error) {
+        console.error('Error in GetAllStudentsData:', error);
+        return res.status(500).json({ error: 'Server error' });
+    }
 }
 
 const CreateStudentsData = async (req, res) => {
@@ -78,13 +104,13 @@ const CreateStudentsData = async (req, res) => {
 
 const FindStudentsByName = async (req, res) => {
     const { college_roll, sem } = req.body;
-    if ( !college_roll || !sem) {
+    if (!college_roll || !sem) {
         return res.status(400).json({
             message: "Please fill all the fields"
         })
     }
     try {
-        const SerachStudent = await Students.findOne({  college_roll, sem });
+        const SerachStudent = await Students.findOne({ college_roll, sem });
         if (!SerachStudent) {
             return res.status(400).json({
                 message: "Student not found",
@@ -117,7 +143,7 @@ const FindStudentsByID = async (req, res) => {
     }
     try {
         const SerachStudent = await Students.findById(id);
-        if (!SerachStudent) {   
+        if (!SerachStudent) {
             return res.status(400).json({
                 message: "Student not found",
                 success: false,
@@ -129,7 +155,7 @@ const FindStudentsByID = async (req, res) => {
             message: "Student found successfully",
             data: SerachStudent
         })
-        
+
     } catch (error) {
         console.log("Error fetching student by ID:", error.message);
         return res.status(500).json({

@@ -1,4 +1,4 @@
-import { set } from 'mongoose';
+
 import React, { useState, useEffect, } from 'react'
 import QRCode from "react-qr-code";
 import { useStore } from '../store/store';

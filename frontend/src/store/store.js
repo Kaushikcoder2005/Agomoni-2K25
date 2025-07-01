@@ -8,7 +8,7 @@ export const useStore = create((set) => ({
 
     getFoodCount: async () => {
         try {
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/", {
+            const response = await fetch("http://localhost:8000", {
                 method: "GET",
                 headers: {
                     "content-type": "application/json"
@@ -37,7 +37,7 @@ export const useStore = create((set) => ({
     findStudentID: async (stdData) => {
         try {
 
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/students/findstudents", {
+            const response = await fetch("http://localhost:8000/students/findstudents", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -68,7 +68,7 @@ export const useStore = create((set) => ({
     createUser: async (users) => {
         try {
 
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/students", {
+            const response = await fetch("http://localhost:8000/students", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -100,7 +100,7 @@ export const useStore = create((set) => ({
 
     validateAdmin: async (adminData)=>{
         try {
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/admin/validate",
+            const response = await fetch("http://localhost:8000/admin/validate",
                 {
                     method: "POST",
                     headers:{
@@ -128,7 +128,7 @@ export const useStore = create((set) => ({
     },
     adminLogin: async()=>{
         try{
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/admin/adminLogin", {
+            const response = await fetch("http://localhost:8000/admin/adminLogin", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -150,7 +150,7 @@ export const useStore = create((set) => ({
     },
     FindStudentsByID: async (id) => {
         try {
-            const response = await fetch("https://agomoni-2k25-api.vercel.app/students/studentData", {
+            const response = await fetch("http://localhost:8000/students/studentData", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

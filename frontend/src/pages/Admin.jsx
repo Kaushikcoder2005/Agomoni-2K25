@@ -3,17 +3,16 @@ import QrReader from 'react-qr-barcode-scanner';
 import { useStore } from '../store/store';
 import { toast } from 'react-toastify';
 
-
 function Admin() {
     const [qrdata, setQRData] = useState("");
     const [studentData, setStudentData] = useState({});
     const [show, setShow] = useState(true);
-    const { validateAdmin, adminLogin, FindStudentsByID } = useStore()
+    const { validateAdmin, adminLogin, FindStudentsByID } = useStore();
     const [input, setInput] = useState({
         username: "",
         password: ""
-    })
-    const errorToastShown = useRef(false); // to avoid duplicate toasts
+    });
+    const errorToastShown = useRef(false); // To avoid duplicate toasts
 
     const FindeStudentData = async (id) => {
         const { success, message, data } = await FindStudentsByID(id);
@@ -30,13 +29,13 @@ function Admin() {
                 errorToastShown.current = true;
             }
         }
-    }
+    };
+
     useEffect(() => {
         if (qrdata) {
             FindeStudentData(qrdata);
         }
     }, [qrdata]);
-
 
     useEffect(() => {
         const fetchAdminLogin = async () => {
@@ -57,10 +56,12 @@ function Admin() {
 
     const toggleQRData = () => {
         setQRData("");
-    }
+        setStudentData({});
+        errorToastShown.current = false; // Reset toast state
+    };
 
     const adminValidation = async () => {
-        const { success, message } = await validateAdmin(input)
+        const { success, message } = await validateAdmin(input);
         if (success) {
             setShow(true);
         } else {
@@ -68,7 +69,7 @@ function Admin() {
             toast.error(message);
             setQRData("");
         }
-    }
+    };
 
     return (
         <div className='flex flex-col items-center justify-start bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-16'>
@@ -77,7 +78,6 @@ function Admin() {
             {!show ? (
                 <div className='flex flex-col items-center justify-center gap-6'>
                     <div className='flex flex-col items-start justify-start w-[320px] gap-4'>
-                        {/* username  */}
                         <div className='w-full'>
                             <label htmlFor="username" className='pl-1 block'>Username:</label>
                             <input
@@ -88,7 +88,6 @@ function Admin() {
                                 onChange={(e) => setInput({ ...input, username: e.target.value })}
                             />
                         </div>
-                        {/* password */}
                         <div className='w-full'>
                             <label htmlFor="password" className='pl-1 block'>Password:</label>
                             <input
@@ -108,33 +107,33 @@ function Admin() {
                     </button>
                 </div>
             ) : (
-                <div className='flex flex-col items-center  gap-6'>
-                    {
-                        !qrdata ? (
-
-                            <QrReader
-                                onUpdate={(err, result) => {
-                                    if (result?.text) {
-                                        setQRData(result.text);
-                                    }
-                                }}
-                                constraints={{ facingMode: 'environment' }}
-                                className="w-[280px] sm:w-[300px] rounded-md shadow-md"
-                            />
-                        ) : (
-
-                            <div className='bg-white/35 backdrop-blur-xs border border-[#920F05] focus:outline-none w-full px-3 py-2.5 rounded-2xl'>
-                                <p>Name: {studentData.name}</p>
-                                <p>Roll: {studentData.college_roll}</p>
-                                <p>Year: {studentData.year}</p>
-                                <p>Semester: {studentData.sem}</p>
-                                <p>FoodPreference : {studentData.foodType}</p>
-                                <button className="px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
-                                    onClick={toggleQRData}>OK</button>
-                            </div>
-                        )
-                    }
-
+                <div className='flex flex-col items-center gap-6'>
+                    {!qrdata ? (
+                        <QrReader
+                            onUpdate={(err, result) => {
+                                if (result?.text && result.text !== qrdata) {
+                                    setQRData(result.text);
+                                    errorToastShown.current = false; // reset for new scan
+                                }
+                            }}
+                            constraints={{ facingMode: 'environment' }}
+                            className="w-[280px] sm:w-[300px] rounded-md shadow-md"
+                        />
+                    ) : (
+                        <div className='bg-white/35 backdrop-blur-xs border border-[#920F05] w-full px-3 py-2.5 rounded-2xl text-left'>
+                            <p><strong>Name:</strong> {studentData.name}</p>
+                            <p><strong>Roll:</strong> {studentData.college_roll}</p>
+                            <p><strong>Year:</strong> {studentData.year}</p>
+                            <p><strong>Semester:</strong> {studentData.sem}</p>
+                            <p><strong>Food Preference:</strong> {studentData.foodType}</p>
+                            <button
+                                className="mt-4 px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
+                                onClick={toggleQRData}
+                            >
+                                OK
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

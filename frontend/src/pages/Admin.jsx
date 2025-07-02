@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 
 function Admin() {
-    const [qrdata, setQRData] = useState("6862d5a94aa6409f04a710e0");
+    const [qrdata, setQRData] = useState("");
     const [studentData, setStudentData] = useState({});
     const [show, setShow] = useState(true);
     const { validateAdmin, adminLogin, FindStudentsByID } = useStore()

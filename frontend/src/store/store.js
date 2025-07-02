@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-const API_BASE_URL = "http://localhost:8000"; // Consider renaming to something more descriptive
+// const API_BASE_URL = "http://localhost:8000"; // Consider renaming to something more descriptive
 
 export const useStore = create((set) => ({
     user: [],   
 
     getFoodCount: async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api`, {
+            const response = await fetch(`/api`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json"
@@ -33,7 +33,7 @@ export const useStore = create((set) => ({
 
     findStudentID: async (stdData) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/students/findstudents`, {
+            const response = await fetch(`/api/students/findstudents`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -60,7 +60,7 @@ export const useStore = create((set) => ({
 
     createUser: async (users) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/students`, {
+            const response = await fetch(`/api/students`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -90,7 +90,7 @@ export const useStore = create((set) => ({
 
     validateAdmin: async (adminData) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/admin/validate`, {
+            const response = await fetch(`/api/admin/validate`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -114,7 +114,7 @@ export const useStore = create((set) => ({
 
     adminLogin: async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/admin/adminLogin`, {
+            const response = await fetch(`/api/admin/adminLogin`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -137,7 +137,7 @@ export const useStore = create((set) => ({
 
     FindStudentsByID: async (id) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/students/studentData`, {
+            const response = await fetch(`/api/students/studentData`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

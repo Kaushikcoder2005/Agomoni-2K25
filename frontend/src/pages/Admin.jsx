@@ -121,7 +121,7 @@ function Admin() {
                         />
                     ) : (
                         <>
-                            <div className='bg-white/25 backdrop-blur-xs border border-[#920F05] w-full max-w-md mx-auto px-4 py-3 rounded-2xl text-left'>
+                            <div className='bg-white/15 backdrop-blur-xs border border-[#920F05] w-full max-w-md mx-auto px-4 py-3 rounded-2xl text-left'>
                                 <p><strong>Name:</strong> {studentData.name}</p>
                                 <p><strong>Roll:</strong> {studentData.college_roll}</p>
                                 <p><strong>Year:</strong> {studentData.year}</p>

@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
-const API_BASE_URL = "https://agomoni-2k25-backend.onrender.com"; // Consider renaming to something more descriptive
+const API_BASE_URL = "http://localhost:8000"; // Consider renaming to something more descriptive
 
 export const useStore = create((set) => ({
-    user: [],
+    user: [],   
 
     getFoodCount: async () => {
         try {

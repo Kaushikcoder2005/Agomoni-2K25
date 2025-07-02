@@ -127,10 +127,10 @@ function Admin() {
                             <p><strong>Semester:</strong> {studentData.sem}</p>
                             <p><strong>Food Preference:</strong> {studentData.foodType}</p>
                             <button
-                                className="mt-4 px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
+                                className="px-6 py- text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05]  text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
                                 onClick={toggleQRData}
                             >
-                                OK
+                                Done
                             </button>
                         </div>
                     )}

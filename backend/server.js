@@ -15,11 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(cors());
 app.use("/api", StaticRoute)
 app.use("/api/students", router);
 app.use("/api/admin", adminRouter)

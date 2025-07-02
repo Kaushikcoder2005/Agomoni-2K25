@@ -29,9 +29,9 @@ const frontendPath = path.join(__dirname, '../frontend/dist');
 app.use(express.static(frontendPath));
 
 // ✅ Catch-all route to serve SPA for unmatched routes
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(frontendPath, 'index.html'));
-// });
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 const PORT = process.env.PORT || 8000;
 

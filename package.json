@@ -5,13 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon backend/server.js",
-     "build": "echo \"No build step defined for backend. If you have a frontend, run 'pnpm --filter frontend build'\""
-  
+    "build": "echo \"No build step defined for backend. If you have a frontend, run 'pnpm --filter frontend build'\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.12.4",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",

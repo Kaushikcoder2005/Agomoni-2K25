@@ -12,7 +12,7 @@ const path = require('path');
 dotenv.config();
 
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'https://agomoni-2k25-1.onrender.com',
+    origin: process.env.CLIENT_URL || 'https://agomoni-2k25-1.onrender.com/',
     credentials: true
 }));
 app.use(cookieParser());

@@ -13,8 +13,8 @@ export default defineConfig({
   },
   server:{
     proxy:{
-      "/api":"http://localhost:8000"
-      
+      "/api":"https://agomoni-2k25.onrender.com/"
+
     }
   }
 })

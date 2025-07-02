@@ -121,20 +121,21 @@ function Admin() {
                         />
                     ) : (
                         <>
-                            <div className='bg-white/15 backdrop-blur-xs border border-[#920F05] w-full max-w-md mx-auto px-4 py-3 rounded-2xl text-left'>
-                                <p><strong>Name:</strong> {studentData.name}</p>
-                                <p><strong>Roll:</strong> {studentData.college_roll}</p>
-                                <p><strong>Year:</strong> {studentData.year}</p>
-                                <p><strong>Semester:</strong> {studentData.sem}</p>
-                                <p><strong>Food Preference:</strong> {studentData.foodType}</p>
+                            <div className='bg-black/40 backdrop-blur-sm border border-[#920F05] w-full max-w-md mx-auto px-4 py-3 rounded-2xl text-left'>
+                                <p className="text-xl md:text-2xl text-white"><strong className="font-semibold">Name:</strong> {studentData.name}</p>
+                                <p className="text-xl md:text-2xl text-white"><strong className="font-semibold">Roll:</strong> {studentData.college_roll}</p>
+                                <p className="text-xl md:text-2xl text-white"><strong className="font-semibold">Year:</strong> {studentData.year}</p>
+                                <p className="text-xl md:text-2xl text-white"><strong className="font-semibold">Semester:</strong> {studentData.sem}</p>
+                                <p className="text-xl md:text-2xl text-white"><strong className="font-semibold">Food Preference:</strong> {studentData.foodType}</p>
                             </div>
 
                             <button
-                                className="mt-6 px-8 py-3 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
+                                className="mt-6 px-8 py-3 text-3xl md:text-4xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
                                 onClick={toggleQRData}
                             >
                                 Done
                             </button>
+
 
 
                         </>

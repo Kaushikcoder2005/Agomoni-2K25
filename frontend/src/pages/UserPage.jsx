@@ -64,7 +64,7 @@ function UserPage() {
     return (
 
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-17 eb-garamond-bold' >
-
+            
             {/* Name Section  */}
             <div className='flex flex-col items-start justify-start  w-[320px]'>
                 <label htmlFor="name" className='pl-0.5'>Name:-</label>

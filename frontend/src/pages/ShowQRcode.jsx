@@ -51,12 +51,15 @@ function ShowQRcode() {
     return (
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-20 eb-garamond-bold'>
             {showQR && value ? (
-                <QRCode
-                    size={256}
-                    style={{ height: "auto", maxWidth: "250px", width: "200px" }}
-                    value={value}
-                    viewBox="0 0 256 256"
-                />
+                <div className='flex flex-col items-center gap-6'>
+                    <h1 className='arizonia-regular text-7xl text-white select-none'>Thank You</h1>
+                    <QRCode
+                        size={256}
+                        style={{ height: "auto", maxWidth: "250px", width: "200px" }}
+                        value={value}
+                        viewBox="0 0 256 256"
+                    />
+                </div>
             ) : (
                 <>
                     <div className='flex flex-col items-start justify-start w-[320px]'>

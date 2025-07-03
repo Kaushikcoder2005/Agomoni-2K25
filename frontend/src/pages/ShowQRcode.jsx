@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from "react-qr-code";
-import { useLocation } from 'react-router-dom';
 import { useStore } from '../store/store';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -14,11 +13,12 @@ function ShowQRcode() {
         sem: ""
     });
     const [showQR, setShowQR] = useState(false);
-    const [hasSubmitted, setHasSubmitted] = useState(false); // <== New state
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getUserId = async () => {
-            if (hasSubmitted) return; // Don't fetch if user already submitted manually
+            if (hasSubmitted) return setLoading(false);
             try {
                 const { data } = await getFoodCount();
                 if (data?.userID) {
@@ -27,6 +27,8 @@ function ShowQRcode() {
                 }
             } catch (error) {
                 console.error("Failed to fetch user ID", error);
+            } finally {
+                setLoading(false);
             }
         };
         getUserId();
@@ -37,7 +39,7 @@ function ShowQRcode() {
         if (success) {
             setValue(data._id);
             setShowQR(true);
-            setHasSubmitted(true); // <== Mark as manually submitted
+            setHasSubmitted(true);
             toast.success(message);
         } else {
             toast.error(message);
@@ -48,11 +50,18 @@ function ShowQRcode() {
         });
     };
 
+    if (loading) {
+        return (
+            <div className='flex flex-col items-center justify-start bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-20 eb-garamond-bold'>
+                <h1 className='arizonia-regular text-7xl text-white select-none'>Loading...</h1>
+            </div>
+        );
+    }
+
     return (
         <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-20 eb-garamond-bold'>
             {showQR && value ? (
                 <>
-
                     <h1 className='arizonia-regular text-7xl text-white select-none'>Thank You</h1>
                     <div className='flex flex-col items-center gap-6 bg-white/35 backdrop-blur-xs p-4 rounded-xl'>
                         <div className="p-3 bg-white rounded-lg shadow-md">
@@ -65,7 +74,6 @@ function ShowQRcode() {
                         </div>
                     </div>
                 </>
-
             ) : (
                 <>
                     <div className='flex flex-col items-start justify-start w-[320px]'>

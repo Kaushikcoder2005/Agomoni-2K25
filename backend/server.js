@@ -8,6 +8,9 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const os = require('os');
+const cluster = require('cluster');
+
 
 dotenv.config();
 
@@ -30,18 +33,32 @@ app.use(express.static(frontendPath));
 
 // ✅ Catch-all route to serve SPA for unmatched routes
 app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 8000;
+const totalCPUs = os.cpus().length;
 
-connectDB()
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log("Server is running on port " + PORT);
-            console.log("http://localhost:" + PORT);
-        });
-    })
-    .catch((error) => {
-        console.log(`Error connecting to the database: ${error.message}`);
+if (cluster.isPrimary) {
+    for (let i = 0; i < totalCPUs; i++) {
+        cluster.fork();
+
+    }
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`);
     });
+    // console.log(`Primary ${process.pid} is running`);
+} else {
+
+    connectDB()
+        .then(() => {
+            app.listen(PORT, () => {
+                console.log("Server is running on port " + PORT);
+                console.log("http://localhost:" + PORT);
+            });
+        })
+        .catch((error) => {
+            console.log(`Error connecting to the database: ${error.message}`);
+        });
+}
+

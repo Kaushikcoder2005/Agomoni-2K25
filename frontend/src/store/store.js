@@ -46,7 +46,7 @@ export const useStore = create((set) => ({
             return {
                 success: data.success,
                 message: data.message,
-                data: data.data
+                data: data.data,
             }
         } catch (error) {
             console.log('Error finding student ID:', error);

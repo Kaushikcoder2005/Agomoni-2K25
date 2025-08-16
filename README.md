@@ -17,7 +17,7 @@ Agomoni 2K25 is a full-stack web application built with the **MERN (MongoDB, Exp
 
 ## 🖼️ Demo
 
-> _Link to live demo (if deployed)_
+> [_Link to live demo _](https://agomoni-2k25.onrender.com/)
 
 ---
 

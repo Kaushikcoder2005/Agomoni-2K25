@@ -52,6 +52,7 @@ const validateAdmin = async (req, res) => {
                 message: "Please fill all the fields"
             })
         }
+        
         const exsistingAdmin = await Admin.findOne({ username })
         if (!exsistingAdmin) {
             return res.status(400).json({

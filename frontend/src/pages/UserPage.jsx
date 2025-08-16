@@ -69,7 +69,7 @@ function UserPage() {
             <div className='flex flex-col items-start justify-start  w-[320px]'>
                 <label htmlFor="name" className='pl-0.5'>Name:-</label>
                 <input type="text" id='name' value={input.name} onChange={(e) => setInput({ ...input, name: e.target.value })} className="bg-white/35 backdrop-blur-xs border border-[#920F05]  focus:outline-none w-full px-2 py-2.5 rounded-2xl" />
-            </div>
+            </div>  
 
             {/* College_Roll Section  */}
 

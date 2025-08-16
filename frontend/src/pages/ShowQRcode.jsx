@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import QRCode from "react-qr-code";
 import { useStore } from '../store/store';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function ShowQRcode() {
     const { getFoodCount, findStudentID } = useStore();
@@ -15,6 +17,22 @@ function ShowQRcode() {
     const [showQR, setShowQR] = useState(false);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    // refs for animation
+    const inputRefs = useRef([]);
+    const formContainer = useRef(null);
+
+    useGSAP(() => {
+        if (!showQR) {
+            gsap.from(inputRefs.current, {
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out",
+            });
+        }
+    }, [showQR]);
 
     useEffect(() => {
         const getUserId = async () => {
@@ -59,7 +77,7 @@ function ShowQRcode() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-20 eb-garamond-bold'>
+        <div ref={formContainer} className='flex flex-col items-center justify-start gap-4 bg-center bg-cover bg-[url(./images/background.jpg)] h-screen w-full pt-20 eb-garamond-bold'>
             {showQR && value ? (
                 <>
                     <h1 className='arizonia-regular text-7xl text-white select-none'>Thank You</h1>
@@ -76,7 +94,10 @@ function ShowQRcode() {
                 </>
             ) : (
                 <>
-                    <div className='flex flex-col items-start justify-start w-[320px]'>
+                    <div
+                        ref={(el) => (inputRefs.current[0] = el)}
+                        className='flex flex-col items-start justify-start w-[320px]'
+                    >
                         <label htmlFor="college_roll" className='pl-0.5'>College Roll:</label>
                         <input
                             type="text"
@@ -87,7 +108,10 @@ function ShowQRcode() {
                         />
                     </div>
 
-                    <div className='flex flex-col items-start justify-start w-[320px]'>
+                    <div
+                        ref={(el) => (inputRefs.current[1] = el)}
+                        className='flex flex-col items-start justify-start w-[320px]'
+                    >
                         <label htmlFor="sem" className='pl-0.5'>Semester:</label>
                         <select
                             id="sem"
@@ -107,6 +131,7 @@ function ShowQRcode() {
                     </div>
 
                     <NavLink
+                        ref={(el) => (inputRefs.current[2] = el)}
                         className="px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
                         onClick={handleIDSubmit}
                     >

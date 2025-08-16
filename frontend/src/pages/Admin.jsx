@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import QrReader from 'react-qr-barcode-scanner';
 import { useStore } from '../store/store';
 import { toast } from 'react-toastify';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function Admin() {
     const [qrdata, setQRData] = useState("");
@@ -12,6 +14,20 @@ function Admin() {
         username: "",
         password: ""
     });
+    // Refs for GSAP animations
+    const UsernameRef = useRef(null)
+    const PasswordRef = useRef(null);
+    const ButtonRef = useRef(null);
+    const containerRef = useRef(null);
+
+    useGSAP(()=>{
+        const tl = gsap.timeline({ defaults: { duration: 2, ease: "power2.out" } });
+        tl.from(UsernameRef.current,{y: -50, opacity: 0})
+            .from(PasswordRef.current, { y: -50, opacity: 0 }, "-=0.3")
+            .from(ButtonRef.current, { y: -50, opacity: 0 }, "-=0.2");
+    },{scope: containerRef}); // optional: scope cleanup for React
+
+    // 
     const errorToastShown = useRef(false); // To avoid duplicate toasts
 
     const FindeStudentData = async (id) => {
@@ -76,9 +92,9 @@ function Admin() {
             <h1 className='arizonia-regular text-7xl select-none text-center mb-4'>Admin Login</h1>
 
             {!show ? (
-                <div className='flex flex-col items-center justify-center gap-6'>
+                <div ref={containerRef} className='flex flex-col items-center justify-center gap-6'>
                     <div className='flex flex-col items-start justify-start w-[320px] gap-4'>
-                        <div className='w-full'>
+                        <div ref={UsernameRef} className='w-full'>
                             <label htmlFor="username" className='pl-1 block'>Username:</label>
                             <input
                                 type="text"
@@ -88,7 +104,7 @@ function Admin() {
                                 onChange={(e) => setInput({ ...input, username: e.target.value })}
                             />
                         </div>
-                        <div className='w-full'>
+                        <div ref={PasswordRef} className='w-full'>
                             <label htmlFor="password" className='pl-1 block'>Password:</label>
                             <input
                                 type="password"
@@ -99,12 +115,15 @@ function Admin() {
                             />
                         </div>
                     </div>
-                    <button
-                        className="px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
-                        onClick={adminValidation}
-                    >
-                        Submit
-                    </button>
+                    <div ref={ButtonRef}>
+                        <button
+                            className="px-6 py-2 text-2xl rounded-xl bg-[#D9D9D9] border border-[#920F05] text-[#920F05] transition duration-300 shadow-[2px_2px_4px_rgba(0,0,0,0.2)] tracking-wide eb-garamond-semibold"
+                            onClick={adminValidation}
+                        >
+                            Submit
+                        </button>
+
+                    </div>
                 </div>
             ) : (
                 <div className='flex flex-col items-center gap-6'>
